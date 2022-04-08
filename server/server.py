@@ -13,7 +13,7 @@ class Server:
         context.verify_mode = ssl.CERT_REQUIRED
         context.load_verify_locations("./clientCRT/client.crt")
         context.load_cert_chain(certfile="./serverCRT/server.crt", keyfile="./serverCRT/server.key")
-        context.keylog_filename = "keylog.log" # DEBUG PURPOSES
+        # context.keylog_filename = "keylog.log" # DEBUG PURPOSES
         return context
     
     def createSocket(self, port):

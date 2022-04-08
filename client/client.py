@@ -1,5 +1,7 @@
-import socket, ssl
+import socket
+import ssl
 from common import sendMsg, recvMsg
+
 
 class Client:
 
@@ -10,15 +12,16 @@ class Client:
     def createContext(self):
         context = ssl.SSLContext(ssl.PROTOCOL_TLSv1_2)
         context.verify_mode = ssl.CERT_REQUIRED
-        context.load_verify_locations("./serverCRT/server.crt")
-        context.load_cert_chain(certfile="./clientCRT/client.crt", keyfile="./clientCRT/client.key")
+        context.load_verify_locations("../serverCRT/server.crt")
+        context.load_cert_chain(
+            certfile="../clientCRT/client.crt", keyfile="../clientCRT/client.key")
         return context
 
     def createConnection(self):
-        s = socket.socket()# socket.AF_INET, socket.SOCK_STREAM default
+        s = socket.socket()  # socket.AF_INET, socket.SOCK_STREAM default
         connection = self.context.wrap_socket(s, server_side=False)
         return connection
-    
+
     def startConnection(self, port, handler):
         try:
             self.connection.connect(('127.0.0.1', port))
@@ -36,5 +39,4 @@ if __name__ == "__main__":
         data = recvMsg(connection)
         print(data)
 
-    client.startConnection(3000,dataHandler)
-
+    client.startConnection(3000, dataHandler)
