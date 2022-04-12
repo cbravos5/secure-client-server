@@ -11,11 +11,11 @@ class Server:
     def createContext(self):
         context = ssl.SSLContext(ssl.PROTOCOL_TLSv1_2)
         context.verify_mode = ssl.CERT_REQUIRED
-        context.load_verify_locations("./clientCRT/client.crt")
-        context.load_cert_chain(certfile="./serverCRT/server.crt", keyfile="./serverCRT/server.key")
+        context.load_verify_locations("../clientCRT/client.crt")
+        context.load_cert_chain(certfile="../serverCRT/server.crt", keyfile="../serverCRT/server.key")
         # context.keylog_filename = "keylog.log" # DEBUG PURPOSES
         return context
-    
+
     def createSocket(self, port):
         bindsocket = socket.socket()
         bindsocket.bind(('127.0.0.1', port))
@@ -33,7 +33,8 @@ class Server:
                     self.connection.shutdown(socket.SHUT_RDWR)
                     self.connection.close()
             except Exception as e:
-                print(e)
+                print('Erro na conexão: ', e)
+                exit()
 
 if __name__ == "__main__":
     server = Server(3000)
@@ -44,6 +45,5 @@ if __name__ == "__main__":
             print(data)
             sendMsg(connection, "Hello From Server")
             data = recvMsg(connection)
-            
 
     server.startListening(dataHandler)

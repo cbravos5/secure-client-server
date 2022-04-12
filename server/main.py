@@ -1,9 +1,5 @@
 #!/usr/bin/env python3
 
-import sys
-from command_parser import CommandParser
-from commands import Commands
-from create_service import CreateService
 from common import sendMsg, recvMsg
 from server import Server
 from serializer import Serializer
@@ -11,39 +7,43 @@ from student_dao import StudentDao
 import peewee
 
 def dataHandler(connection):
-        sendMsg(connection)
-        data = recvMsg(connection)
-        print(data)
-
-
-# server = Server(3000)
-
-# def dataHandler(connection):
-#     data = recvMsg(connection)
-#     while data:
-#         print(data)
-#         sendMsg(connection, "Hello From Server")
-#         data = recvMsg(connection)
-
-# server.startListening(dataHandler)
-
-parser = CommandParser()
-
-serializer = Serializer()
-dao = StudentDao()
-while True:
-    try:
-        # receive message
-        command = serializer.deserialize('{"action": "create", "data": {"name": "a", "age": "32", "br_document": "a", "email": "b"}}')
-        # defina a action
+    serializer = Serializer()
+    dao = StudentDao()
+    while True:
         try:
-            if command['action'] == 'create':
-                dao.create(command['data'])
-            # retorna ok
-        except peewee.PeeweeException as e:
-            print(e)
-            # retorna falha
-        exit()
-    except (EOFError, KeyboardInterrupt):
-        print('\nEnd of program')
-        break
+            # receive message
+            data = recvMsg(connection)
+            command = serializer.deserialize(data)
+            try:
+                msg = { 'status': 'OK', 'message': 'ok'}
+            # defina a action
+                if command['action'] == 'create':
+                    print('Ação criar executada.')
+                    dao.create(command['data'])
+                elif command['action'] == 'update':
+                    print('Ação atualizar executada.')
+                    dao.update(command['data'])
+                elif command['action'] == 'list':
+                    print('Ação listar executada')
+                    msg['data'] = dao.list(command['data'])
+                elif command['action'] == 'delete':
+                    print('Ação deletar executada')
+                    dao.delete(command['data'])
+                # retorna ok
+                msg = serializer.serialize(msg)
+            except peewee.PeeweeException as e:
+                print(e)
+                # retorna falha
+                msg = { 'status': 'NOK', 'message': str(e)}
+                msg = serializer.serialize(msg)
+            sendMsg(connection, msg)
+        except (EOFError, KeyboardInterrupt):
+            print('\nEnd of program')
+            break
+    exit()
+
+
+print('Starting server...')
+server = Server(3002)
+print('Server started...')
+server.startListening(dataHandler)

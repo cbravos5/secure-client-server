@@ -28,7 +28,8 @@ class Client:
             handler(self.connection)
             self.connection.close()
         except Exception as e:
-            print(e)
+            print('Problema na conexão: ', e)
+            exit()
 
 
 if __name__ == "__main__":

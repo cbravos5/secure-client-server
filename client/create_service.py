@@ -6,10 +6,6 @@ from serializer import Serializer
 
 
 class CreateService:
-
-    def __init__(self, client):
-        self.client_connection = client
-
     def call(self):
         # read input
         # serialize data
@@ -19,8 +15,7 @@ class CreateService:
             m_data = self.build_data()
             serializer = Serializer()
             serialized_data = serializer.serialize('create', m_data)
-            print(serialized_data)
-            # Send to remote
+            return serialized_data
         # TODO: fix de ctrl + d para voltar ao menu.
         except KeyboardInterrupt as e:
             return

@@ -9,7 +9,6 @@ class Serializer:
             'action': action,
             'data': data
         }
-        print(formatted_data)
         return json.dumps(formatted_data)
 
     def deserialize(self, json_string):
