@@ -13,6 +13,7 @@ def dataHandler(connection):
         try:
             # receive message
             data = recvMsg(connection)
+            if(not data): break
             command = serializer.deserialize(data)
             try:
                 msg = { 'status': 'OK', 'message': 'ok'}
