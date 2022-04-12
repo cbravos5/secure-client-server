@@ -46,4 +46,4 @@ def dataHandler(connection):
             break
 
 client = Client()
-client.startConnection(3002, dataHandler)
+client.startConnection(3000, dataHandler)

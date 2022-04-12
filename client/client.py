@@ -31,13 +31,3 @@ class Client:
             print('Problema na conexão: ', e)
             exit()
 
-
-if __name__ == "__main__":
-    client = Client()
-
-    def dataHandler(connection):
-        sendMsg(connection, "Hello From Client!!!")
-        data = recvMsg(connection)
-        print(data)
-
-    client.startConnection(3000, dataHandler)

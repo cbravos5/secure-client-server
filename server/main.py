@@ -44,6 +44,6 @@ def dataHandler(connection):
 
 
 print('Starting server...')
-server = Server(3002)
+server = Server(3000)
 print('Server started...')
 server.startListening(dataHandler)
