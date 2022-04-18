@@ -1,6 +1,5 @@
 #!/usr/bin/env python3
 
-from distutils.command.build import build
 from utils import *
 from serializer import Serializer
 
