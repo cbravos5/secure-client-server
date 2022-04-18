@@ -16,7 +16,7 @@ O arquivo `main.py` é o principal de ambos e responsável pela inicialização 
 
 A lógica de conexão e gerenciamento do que se refere a comunicação cliente-servidor está no arquivo `client/client.py` para o cliente, e no arquivo `server/server.py` para o servidor. Todos os outros arquivos são referentes à outros aspectos do sistema (regras de negócio, modelos do banco, validação de parâmetros, etc).
 
-### Execução
+## Execução
 
 Para executar o código, estando na pasta client, por exemplo:
 
@@ -64,7 +64,7 @@ Server started...
 Ação criar executada.
 ```
 
-# Dependências
+## Dependências
 
 * SSL
 * peewee
@@ -81,10 +81,10 @@ Ação criar executada.
 - Lado do cliente: [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: self signed certificate (\_ssl.c:1129)
 - Lado do servidor: [SSL: TLSV1_ALERT_UNKNOWN_CA] tlsv1 alert unknown ca (\_ssl.c:1129)
 
-## Links úteis
+### Links úteis
 
 [Python Sockets](https://realpython.com/python-sockets/)
 
-# Motivação
+## Motivação
 
 Código e tutorial criados como parte da disciplina CI1365: TÓPICOS EM REDES DE COMPUTADORES do curso de Bacharelado em Ciência da Computação da Universidade Federal do Paraná (UFPR) - 2022
